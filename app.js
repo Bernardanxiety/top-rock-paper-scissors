@@ -1,40 +1,45 @@
-function game() {
-  const moves = ["rock", "paper", "scissors"];
-  function getComputerChoice() {
-    function rng() {
-      let currentRNG = Math.floor(Math.random() * 3);
-      return moves[currentRNG];
+const playerMoves = document.querySelectorAll(".player-move");
+const cpuScore = document.querySelector(".cpu-score");
+const playerScore = document.querySelector(".player-score");
+const restart = document.querySelector(".restart");
+let pScore = 0;
+let cScore = 0;
+
+playerMoves.forEach((move) =>
+  move.addEventListener("click", (e) => {
+    let myChoice = "";
+    myChoice = e.target.getAttribute("data");
+
+    function computerChoice() {
+      let moves = ["rock", "paper", "scissors"];
+      return moves[Math.floor(Math.random() * 3)];
     }
+    function compare() {
+      let cpu = computerChoice();
 
-    let move = rng();
-    return move;
-  }
-
-  function getPlayerChoice() {
-    let cpuMove = getComputerChoice();
-    let playerMove = getPlayerChoice();
-
-    if (cpuMove === playerMove) {
-      window.alert("Draw");
-    } else if (cpuMove === "rock") {
-      if (playerMove === "paper") {
-        window.alert("Player wins");
+      if (cpu === myChoice) {
+        console.log("xd");
+      } else if (
+        (cpu === "rock" && myChoice === "paper") ||
+        (cpu === "paper" && myChoice === "scissors") ||
+        (cpu === "scissors" && myChoice === "rock")
+      ) {
+        pScore++;
+        playerScore.textContent = pScore;
       } else {
-        window.alert(`${cpuMove} Player loses`);
+        cScore++;
+        cpuScore.textContent = cScore;
       }
-    } else if (cpuMove === "paper") {
-      if (playerMove === "scissors") {
-        window.alert("Player wins");
-      } else {
-        window.alert(`${cpuMove} wins`);
-      }
-    } else {
-      if (playerMove === "rock") {
-        window.alert("Player wins");
-      } else {
-        window.alert(`${cpuMove} wins`);
-      }
+      console.log(`${cpu} ${myChoice}`);
+      console.log(`${cScore} ${pScore}`);
     }
-    console.log(cpuMove + playerMove);
-  }
-}
+    compare();
+  })
+);
+
+restart.addEventListener("click", (e) => {
+  cScore = 0;
+  pScore = 0;
+  playerScore.textContent = pScore;
+  cpuScore.textContent = cScore;
+});

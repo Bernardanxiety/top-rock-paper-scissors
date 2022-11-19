@@ -31,3 +31,21 @@ body {
   border: 1px solid #fff;
   padding: 0.45em;
 }
+
+.restart {
+  position: relative;
+}
+
+.restart::before {
+  content: "VS";
+}
+
+.restart:hover::before {
+  content: "restart";
+}
+
+.restart::after {
+  content: "<- hover me!";
+  position: absolute;
+  right: -150px;
+}
